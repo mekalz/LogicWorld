@@ -10,6 +10,7 @@ int randNum() {
 }
 
 int main() {
+    system("chcp 65001");
     //////////////////////////////////////
     unsigned seed;  // Random generator seed
     // Use the time function to get a "seed” value for srand
@@ -34,22 +35,34 @@ int main() {
         int ans;
         cin >> ans;
         if (ans == 1) {
-            if (randNum() > 50) {
+            int w = randNum();
+            if (w > 50) {
                 cout << "你遇到了一个魔法精灵，他给你加了一滴血" << endl;
                 if (rank * 10 > hp) {
                     hp = hp + 1;
                 }
             } else {
-                cout << "你遇到了一个魔法怪兽" << endl;
-                if (randNum() >= 45) {
+                cout << "你遇到了一个......" << endl;
+                int a = randNum();
+                if (a >= 50) {
                     cout << "你遇到了一个一级魔法怪兽" << endl;
                     if (hp <= 5) {
                         cout << "魔法怪兽砍了你一刀，你死了." << endl;
                         hp = 0;
-                    } else {
+                    } else if (rank == 1) {
                         hp = hp - 5;
                         cout << "你杀了它，但你掉了5滴血." << endl;
-                        ex = ex + 1;
+                        ex = ex + 4;
+                        if (ex >= 10) {
+                            rank = rank + 1;
+                            cout << "你成功升级到：" << rank << endl;
+                            hp = rank * 10;
+                            ex = 0;
+                        }
+                    } else {
+                        hp = hp - 2;
+                        cout << "你杀了它，但你掉了2滴血." << endl;
+                        ex = ex + 4;
                         if (ex >= 10) {
                             rank = rank + 1;
                             cout << "你成功升级到：" << rank << endl;
@@ -57,7 +70,25 @@ int main() {
                             ex = 0;
                         }
                     }
-                } else if (randNum() >= 20) {
+                } else if (a >= 25) {
+                    cout << "你遇到了一个精灵小屋" << endl;
+                    if (rank * 10 > hp && hp < 5) {
+                        cout << "它给你加了5滴血" << endl;
+                        hp = hp + 5;
+                    } else if (hp >= rank * 10) {
+                        ex = ex + 5;
+                        cout << "它给你加了5经验";
+                        if (ex >= 10) {
+                            rank = rank + 1;
+                            cout << "你成功升级到：" << rank << endl;
+                            hp = rank * 10;
+                            ex = 0;
+                        }
+                    } else {
+                        cout << "它给你加了2滴血";
+                        hp = hp + 2;
+                    }
+                } else if (randNum() >= 10) {
                     cout << "你遇到了一个二级魔法怪兽" << endl;
                     if (rank < 2) {
                         cout << "它杀了你。游戏结束. " << endl;
@@ -65,18 +96,46 @@ int main() {
                     } else if (rank >= 2) {
                         hp = hp - 5;
                         cout << "你杀了它，但你掉了5滴血." << endl;
-                        ex = ex + 1;
+                        ex = ex + 4;
                         if (ex >= 10) {
                             rank = rank + 1;
                             cout << "你成功升级到：" << rank << endl;
                             hp = rank * 10;
                             ex = 0;
                         }
-                    } else if (randNum() >= 25) {
-                        cout << "你遇到了一个精灵小屋" << endl;
-                        if (rank * 10 > hp || 5 < hp) {
-                            cout << "它给你加了5滴血";
-                        }
+                    }
+                }
+            }
+        }
+        if (ans == 2) {
+            int s = randNum();
+            if (s >= 65) {
+                cout << "你遇到了一只黑龙的筋，并把他吃掉了，你加了3滴血" << endl;
+                hp = hp + 3;
+            } else if (s >= 45) {
+                cout << "你遇到了一只2级黑龙";
+                if (rank == 2 && hp >= 3) {
+                    cout << "你杀了它，但你掉了5滴血." << endl;
+                    hp = hp -5;
+                    ex = ex + 4;
+                    if (ex >= 10) {
+                        rank = rank + 1;
+                        cout << "你成功升级到：" << rank << endl;
+                        hp = rank * 10;
+                        ex = 0;
+                    }
+                }else if (rank < 2){
+                    cout << "你死了" << endl;
+                    hp = 0;
+                }else {
+                    cout <<  "你杀了它 但你掉了2滴血"<< endl;
+                    hp = hp - 2;
+                    ex = ex + 4;
+                    if (ex >= 10) {
+                        rank = rank + 1;
+                        cout << "你成功升级到：" << rank << endl;
+                        hp = rank * 10;
+                        ex = 0;
                     }
                 }
             }
